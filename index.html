@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safira SDVM - Investimentos em Ações</title>
+    <title>Safira SDVM - Sociedade Distribuidora de Valores Mobiliários</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,10 +16,18 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: #1a1a1a;
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: #f8f9fc;
+        }
+
+        :root {
+            --safira-blue: #003366;      /* Azul safira escuro */
+            --safira-gold: #C6A15B;       /* Dourado para detalhes */
+            --safira-light: #e6f0ff;      /* Azul claro */
+            --safira-dark: #002244;        /* Azul mais escuro */
+            --safira-accent: #4d7eb3;      /* Azul médio */
         }
 
         /* Custom Scrollbar */
@@ -32,284 +40,388 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--safira-blue);
             border-radius: 5px;
         }
 
-        /* Navigation */
+        /* Navigation - Estilo idêntico ao site Safira */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 51, 102, 0.1);
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
+        .logo-container {
             display: flex;
-            gap: 2.5rem;
             align-items: center;
         }
 
-        .nav-links a {
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--safira-blue);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--safira-gold);
+            font-weight: 400;
+            font-size: 1rem;
+            display: block;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
             text-decoration: none;
             color: #333;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
             position: relative;
         }
 
-        .nav-links a::after {
+        .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--safira-gold);
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-menu a:hover {
+            color: var(--safira-blue);
+        }
+
+        .nav-menu a:hover::after {
             width: 100%;
         }
 
+        .nav-menu a.active {
+            color: var(--safira-blue);
+        }
+
+        .nav-menu a.active::after {
+            width: 100%;
+            background: var(--safira-blue);
+        }
+
         .btn-invest {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--safira-blue);
             color: white !important;
-            padding: 0.8rem 2rem;
+            padding: 0.8rem 2rem !important;
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .btn-invest:hover {
+            background: var(--safira-gold);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.2);
         }
 
         .btn-invest::after {
             display: none;
         }
 
-        /* Hero Section */
+        /* Hero Section - Estilo Safira */
         .hero {
             min-height: 100vh;
+            background: linear-gradient(135deg, rgba(0,51,102,0.95) 0%, rgba(0,34,68,0.98) 100%), url('https://img.freepik.com/free-photo/modern-office-building_1127-839.jpg') center/cover no-repeat fixed;
             display: flex;
             align-items: center;
             padding: 0 5%;
             position: relative;
-            overflow: hidden;
+            color: white;
+            margin-top: 70px;
         }
 
         .hero-content {
-            flex: 1;
+            max-width: 800px;
             z-index: 2;
         }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
+        .hero-welcome {
+            color: var(--safira-gold);
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: var(--safira-gold);
+            display: block;
+            font-size: 3rem;
+            font-weight: 400;
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: #666;
             margin-bottom: 2.5rem;
+            opacity: 0.9;
             max-width: 600px;
             line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--safira-gold);
+            color: var(--safira-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--safira-gold);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--safira-gold);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--safira-blue);
         }
 
         .hero-stats {
             display: flex;
             gap: 3rem;
-            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
         }
 
         .stat-item {
-            text-align: center;
+            text-align: left;
         }
 
         .stat-number {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: #667eea;
+            font-weight: 800;
+            color: var(--safira-gold);
             display: block;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .stat-label {
-            color: #666;
+            color: rgba(255,255,255,0.8);
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .hero-image {
-            flex: 1;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-image img {
-            width: 100%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Market Section */
-        .market-section {
-            padding: 6rem 5%;
-            background: white;
-        }
-
-        .section-header {
+        /* Section Titles - Estilo Safira */
+        .section-title {
             text-align: center;
             margin-bottom: 4rem;
         }
 
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #1a1a1a;
-            margin-bottom: 1rem;
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--safira-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
         }
 
-        .section-header p {
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--safira-gold);
+        }
+
+        .section-title p {
             color: #666;
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+
+        /* Cards de Ações - Estilo Safira */
+        .acoes-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .acoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .market-card {
+        .acao-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0,51,102,0.1);
             transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+            border: 1px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .market-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        .acao-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--safira-gold);
+        }
+
+        .acao-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,51,102,0.2);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .company-name {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .stock-symbol {
-            color: #667eea;
+        .empresa-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--safira-blue);
+            font-size: 1.3rem;
             font-weight: 700;
+        }
+
+        .empresa-info p {
+            color: #666;
+            font-size: 0.9rem;
         }
 
         .stock-price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--safira-blue);
+            margin: 1rem 0;
+        }
+
+        .stock-price small {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 400;
         }
 
         .stock-change {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
             font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
 
-        .stock-change.positive {
-            color: #10b981;
+        .positive {
+            background: #e6f7e6;
+            color: #00a651;
         }
 
-        .stock-change.negative {
-            color: #ef4444;
+        .negative {
+            background: #ffe6e6;
+            color: #ff4444;
         }
 
-        .chart-container {
-            margin: 1.5rem 0;
-            height: 100px;
-        }
-
-        .btn-card {
+        .btn-detalhes {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #667eea;
             background: transparent;
-            color: #667eea;
-            border-radius: 10px;
-            font-weight: 600;
+            border: 2px solid var(--safira-blue);
+            color: var(--safira-blue);
+            border-radius: 5px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        .btn-card:hover {
-            background: #667eea;
+        .btn-detalhes:hover {
+            background: var(--safira-blue);
             color: white;
         }
 
-        /* Features Section */
-        .features-section {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        /* Serviços Section */
+        .servicos-section {
+            padding: 5rem 5%;
+            background: var(--safira-light);
         }
 
-        .features-grid {
+        .servicos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
@@ -317,285 +429,319 @@
             margin: 0 auto;
         }
 
-        .feature-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-item p {
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        /* Investment Plans */
-        .plans-section {
-            padding: 6rem 5%;
+        .servico-item {
             background: white;
-        }
-
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .plan-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .plan-card:hover {
-            transform: scale(105%);
-            border-color: #667eea;
-        }
-
-        .plan-card.popular {
-            border: 2px solid #667eea;
-            transform: scale(105%);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            color: #333;
-            margin: 1.5rem 0;
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 1rem;
-        }
-
-        .plan-price span {
-            font-size: 1rem;
-            color: #666;
-            font-weight: 400;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .plan-features li {
-            padding: 0.5rem 0;
-            color: #666;
-        }
-
-        .plan-features i {
-            color: #10b981;
-            margin-right: 0.5rem;
-        }
-
-        .btn-plan {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+            padding: 2.5rem 2rem;
             border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,51,102,0.1);
+            border-bottom: 3px solid transparent;
         }
 
-        .btn-plan:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        .servico-item:hover {
+            border-bottom-color: var(--safira-gold);
+            transform: translateY(-5px);
         }
 
-        /* Testimonials */
-        .testimonials-section {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .quote-icon {
-            font-size: 3rem;
-            color: #667eea;
-            opacity: 0.2;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-        }
-
-        .testimonial-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #666;
-            margin: 1.5rem 0;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
+        .servico-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--safira-light);
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--safira-blue);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .servico-item:hover .servico-icon {
+            background: var(--safira-blue);
             color: white;
-            font-weight: 600;
         }
 
-        .author-info h4 {
-            color: #333;
-            margin-bottom: 0.25rem;
+        .servico-item h3 {
+            color: var(--safira-blue);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
-        .author-info p {
+        .servico-item p {
             color: #666;
+            line-height: 1.6;
+        }
+
+        /* Sobre Section */
+        .sobre-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .sobre-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .sobre-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--safira-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .sobre-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .sobre-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sobre-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--safira-light);
+            border-radius: 10px;
+        }
+
+        .sobre-stat .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--safira-gold);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sobre-stat .label {
+            color: var(--safira-blue);
+            font-weight: 600;
+            text-transform: uppercase;
             font-size: 0.9rem;
         }
 
-        /* Newsletter */
-        .newsletter-section {
-            padding: 4rem 5%;
-            background: white;
-            text-align: center;
+        .sobre-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,51,102,0.2);
         }
 
-        .newsletter-container {
-            max-width: 600px;
+        /* Notícias Section */
+        .noticias-section {
+            padding: 5rem 5%;
+            background: var(--safira-light);
+        }
+
+        .noticias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .newsletter-container h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: #1a1a1a;
+        .noticia-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,51,102,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .noticia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,51,102,0.2);
+        }
+
+        .noticia-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .noticia-date {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--safira-gold);
+            color: var(--safira-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .noticia-content {
+            padding: 1.5rem;
+        }
+
+        .noticia-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--safira-blue);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .noticia-content p {
+            color: #666;
+            line-height: 1.6;
             margin-bottom: 1rem;
         }
 
-        .newsletter-container p {
-            color: #666;
-            margin-bottom: 2rem;
+        .read-more {
+            color: var(--safira-gold);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 500px;
+        .read-more i {
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Contacto Section */
+        .contacto-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .contacto-container {
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
         }
 
-        .newsletter-form input {
-            flex: 1;
+        .contacto-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--safira-blue);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .contacto-detail {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contacto-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--safira-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--safira-blue);
+            font-size: 1.2rem;
+        }
+
+        .contacto-text h4 {
+            color: var(--safira-blue);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .contacto-text p {
+            color: #666;
+        }
+
+        .contacto-form {
+            background: var(--safira-light);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
             padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+            transition: all 0.3s ease;
         }
 
-        .newsletter-form input:focus {
+        .form-group input:focus,
+        .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--safira-blue);
         }
 
-        .newsletter-form button {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-submit {
+            background: var(--safira-blue);
             color: white;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 10px;
-            font-weight: 600;
+            border-radius: 5px;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
         }
 
-        .newsletter-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        .btn-submit:hover {
+            background: var(--safira-gold);
+            color: var(--safira-dark);
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
+            background: var(--safira-dark);
             color: white;
             padding: 4rem 5% 2rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 3rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .footer-section h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+        .footer-section h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            color: white;
+            color: var(--safira-gold);
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .footer-section p {
-            color: #999;
+            color: rgba(255,255,255,0.7);
             line-height: 1.8;
             margin-bottom: 1rem;
         }
@@ -609,13 +755,18 @@
         }
 
         .footer-section ul li a {
-            color: #999;
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .footer-section ul li a:hover {
-            color: #667eea;
+            color: var(--safira-gold);
+        }
+
+        .footer-section ul li i {
+            margin-right: 0.5rem;
+            color: var(--safira-gold);
         }
 
         .social-links {
@@ -627,7 +778,7 @@
         .social-links a {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -638,7 +789,8 @@
         }
 
         .social-links a:hover {
-            background: #667eea;
+            background: var(--safira-gold);
+            color: var(--safira-dark);
             transform: translateY(-3px);
         }
 
@@ -646,17 +798,14 @@
             text-align: center;
             padding-top: 3rem;
             margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem 5%;
-            }
-
-            .nav-links {
+            .nav-menu {
                 display: none;
             }
 
@@ -664,295 +813,363 @@
                 font-size: 2.5rem;
             }
 
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 100px;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .section-header h2 {
+            .hero h1 span {
                 font-size: 2rem;
             }
 
-            .plans-grid {
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .sobre-container,
+            .contacto-container {
                 grid-template-columns: 1fr;
             }
 
-            .plan-card.popular {
-                transform: scale(100%);
-            }
-
-            .newsletter-form {
-                flex-direction: column;
+            .section-title h2 {
+                font-size: 2rem;
             }
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Mobile Menu Button (hamburger) */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--safira-blue);
+            cursor: pointer;
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation - Estilo Safira -->
     <nav class="navbar">
-        <div class="logo">SAFIRA SDVM</div>
-        <div class="nav-links">
-            <a href="#home">Início</a>
-            <a href="#market">Mercado</a>
-            <a href="#features">Vantagens</a>
-            <a href="#plans">Planos</a>
-            <a href="#about">Sobre</a>
-            <a href="#contact">Contacto</a>
-            <a href="#" class="btn-invest">Investir Agora</a>
+        <div class="logo-container">
+            <div class="logo">SAFIRA<span>Sociedade Distribuidora de Valores Mobiliários</span></div>
+        </div>
+        <div class="nav-menu">
+            <a href="#home" class="active">Início</a>
+            <a href="#acoes">Ações</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#sobre">Sobre Nós</a>
+            <a href="#noticias">Notícias</a>
+            <a href="#contacto">Contactos</a>
+            <a href="#investir" class="btn-invest">ABRIR CONTA</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <span class="hero-badge">⚡ Mercado em Tempo Real</span>
-            <h1>Invista no Futuro<br>das Ações Angolanas</h1>
-            <p>Plataforma líder em investimentos na Bolsa de Valores de Angola. Acesso direto às melhores oportunidades do mercado.</p>
-            <a href="#" class="btn-invest" style="display: inline-block;">Começar a Investir</a>
-            
+            <span class="hero-welcome">Bem-vindo à Safira SDVM</span>
+            <h1>Investir com<br><span>Confiança e Segurança</span></h1>
+            <p>A Safira SDVM é a sua porta de entrada para o mercado de capitais angolano. Com mais de 20 anos de experiência, oferecemos as melhores soluções de investimento em ações e valores mobiliários.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">Abrir Conta</a>
+                <a href="#" class="btn-outline">Simular Investimento</a>
+            </div>
             <div class="hero-stats">
                 <div class="stat-item">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Anos de Experiência</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15.000+</span>
+                    <span class="stat-label">Clientes Ativos</span>
+                </div>
+                <div class="stat-item">
                     <span class="stat-number">50+</span>
-                    <span class="stat-label">Empresas Listadas</span>
+                    <span class="stat-label">Ações Negociadas</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">10k+</span>
-                    <span class="stat-label">Investidores</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Suporte</span>
-                </div>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://img.freepik.com/free-vector/financial-data-concept-illustration_114360-1600.jpg" alt="Trading Illustration">
-        </div>
-    </section>
-
-    <!-- Market Section -->
-    <section class="market-section" id="market">
-        <div class="section-header">
-            <h2>Mercado em Destaque</h2>
-            <p>Acompanhe as principais ações da Bolsa de Valores de Angola em tempo real</p>
-        </div>
-
-        <div class="market-grid">
-            <div class="market-card">
-                <div class="card-header">
-                    <span class="company-name">Banco Angolano</span>
-                    <span class="stock-symbol">B AI</span>
-                </div>
-                <div class="stock-price">1.250,00 Kz</div>
-                <div class="stock-change positive">
-                    <i class="fas fa-arrow-up"></i> +2.5%
-                </div>
-                <div class="chart-container">
-                    <!-- Placeholder for chart -->
-                </div>
-                <button class="btn-card">Ver Detalhes</button>
-            </div>
-
-            <div class="market-card">
-                <div class="card-header">
-                    <span class="company-name">Telecom Angola</span>
-                    <span class="stock-symbol">T A</span>
-                </div>
-                <div class="stock-price">3.450,00 Kz</div>
-                <div class="stock-change positive">
-                    <i class="fas fa-arrow-up"></i> +1.8%
-                </div>
-                <div class="chart-container">
-                    <!-- Placeholder for chart -->
-                </div>
-                <button class="btn-card">Ver Detalhes</button>
-            </div>
-
-            <div class="market-card">
-                <div class="card-header">
-                    <span class="company-name">Energia Angola</span>
-                    <span class="stock-symbol">E A</span>
-                </div>
-                <div class="stock-price">2.890,00 Kz</div>
-                <div class="stock-change negative">
-                    <i class="fas fa-arrow-down"></i> -0.3%
-                </div>
-                <div class="chart-container">
-                    <!-- Placeholder for chart -->
-                </div>
-                <button class="btn-card">Ver Detalhes</button>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section" id="features">
-        <div class="section-header" style="color: white;">
-            <h2 style="color: white;">Por que escolher a Safira?</h2>
-            <p style="color: rgba(255, 255, 255, 0.9);">Uma plataforma completa para seus investimentos</p>
+    <!-- Ações Section -->
+    <section class="acoes-section" id="acoes">
+        <div class="section-title">
+            <h2>Ações em Destaque</h2>
+            <p>Conheça as principais ações negociadas na Bolsa de Valores de Angola</p>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
+        <div class="acoes-grid">
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Banco Angolano de Investimentos</h3>
+                        <p>BAI</p>
+                    </div>
                 </div>
-                <h3>Segurança Garantida</h3>
-                <p>Proteção de dados e transações com criptografia de ponta a ponta</p>
+                <div class="stock-price">1.250,00 <small>Kz</small></div>
+                <span class="stock-change positive"><i class="fas fa-arrow-up"></i> +2.5%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 1.2M ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
             </div>
 
-            <div class="feature-item">
-                <div class="feature-icon">
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Unitel</h3>
+                        <p>UNITEL</p>
+                    </div>
+                </div>
+                <div class="stock-price">3.450,00 <small>Kz</small></div>
+                <span class="stock-change positive"><i class="fas fa-arrow-up"></i> +1.8%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 890K ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Sonangol</h3>
+                        <p>SONANGOL</p>
+                    </div>
+                </div>
+                <div class="stock-price">2.890,00 <small>Kz</small></div>
+                <span class="stock-change negative"><i class="fas fa-arrow-down"></i> -0.3%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 2.1M ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Banco de Fomento Angola</h3>
+                        <p>BFA</p>
+                    </div>
+                </div>
+                <div class="stock-price">1.890,00 <small>Kz</small></div>
+                <span class="stock-change positive"><i class="fas fa-arrow-up"></i> +0.9%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 750K ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Endiama</h3>
+                        <p>ENDIAMA</p>
+                    </div>
+                </div>
+                <div class="stock-price">4.230,00 <small>Kz</small></div>
+                <span class="stock-change positive"><i class="fas fa-arrow-up"></i> +3.2%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 500K ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+
+            <div class="acao-card">
+                <div class="card-header">
+                    <div class="empresa-info">
+                        <h3>Zap</h3>
+                        <p>ZAP</p>
+                    </div>
+                </div>
+                <div class="stock-price">980,00 <small>Kz</small></div>
+                <span class="stock-change positive"><i class="fas fa-arrow-up"></i> +5.1%</span>
+                <p style="color: #666; margin-bottom: 1rem;">Volume: 1.5M ações</p>
+                <button class="btn-detalhes">Ver Detalhes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section class="servicos-section" id="servicos">
+        <div class="section-title">
+            <h2>Nossos Serviços</h2>
+            <p>Soluções completas para todos os seus investimentos</p>
+        </div>
+
+        <div class="servicos-grid">
+            <div class="servico-item">
+                <div class="servico-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <h3>Análise em Tempo Real</h3>
-                <p>Gráficos e indicadores atualizados instantaneamente</p>
+                <h3>Corretagem</h3>
+                <p>Compra e venda de ações com as melhores taxas do mercado angolano</p>
             </div>
 
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
+            <div class="servico-item">
+                <div class="servico-icon">
+                    <i class="fas fa-briefcase"></i>
                 </div>
-                <h3>App Mobile</h3>
-                <p>Invista de qualquer lugar, a qualquer momento</p>
+                <h3>Gestão de Carteiras</h3>
+                <p>Profissionais especializados na gestão dos seus investimentos</p>
             </div>
 
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
+            <div class="servico-item">
+                <div class="servico-icon">
+                    <i class="fas fa-university"></i>
                 </div>
-                <h3>Suporte Especializado</h3>
-                <p>Equipe de especialistas disponível 24/7</p>
+                <h3>Consultoria</h3>
+                <p>Orientação especializada para suas decisões de investimento</p>
+            </div>
+
+            <div class="servico-item">
+                <div class="servico-icon">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <h3>Research</h3>
+                <p>Análises aprofundadas do mercado e oportunidades</p>
             </div>
         </div>
     </section>
 
-    <!-- Investment Plans -->
-    <section class="plans-section" id="plans">
-        <div class="section-header">
-            <h2>Planos de Investimento</h2>
-            <p>Escolha o plano que melhor se adequa aos seus objetivos</p>
-        </div>
-
-        <div class="plans-grid">
-            <div class="plan-card">
-                <div class="plan-name">Básico</div>
-                <div class="plan-price">5.000 <span>Kz/mês</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Acesso a 10 ações</li>
-                    <li><i class="fas fa-check"></i> Relatórios mensais</li>
-                    <li><i class="fas fa-check"></i> Suporte por email</li>
-                    <li><i class="fas fa-times"></i> Análises exclusivas</li>
-                    <li><i class="fas fa-times"></i> Consultoria pessoal</li>
-                </ul>
-                <button class="btn-plan">Começar Agora</button>
+    <!-- Sobre Section -->
+    <section class="sobre-section" id="sobre">
+        <div class="sobre-container">
+            <div class="sobre-content">
+                <h3>Sobre a Safira SDVM</h3>
+                <p>A Safira - Sociedade Distribuidora de Valores Mobiliários é uma instituição financeira angolana autorizada pelo Banco Nacional de Angola (BNA) para exercer a atividade de intermediação financeira no mercado de capitais.</p>
+                <p>Com mais de duas décadas de experiência, somos referência em confiança, transparência e inovação no mercado angolano, oferecendo aos nossos clientes as melhores oportunidades de investimento.</p>
+                
+                <div class="sobre-stats">
+                    <div class="sobre-stat">
+                        <div class="number">20+</div>
+                        <div class="label">Anos</div>
+                    </div>
+                    <div class="sobre-stat">
+                        <div class="number">15k</div>
+                        <div class="label">Clientes</div>
+                    </div>
+                    <div class="sobre-stat">
+                        <div class="number">50+</div>
+                        <div class="label">Empresas</div>
+                    </div>
+                    <div class="sobre-stat">
+                        <div class="number">24/7</div>
+                        <div class="label">Suporte</div>
+                    </div>
+                </div>
             </div>
-
-            <div class="plan-card popular">
-                <div class="popular-badge">Mais Popular</div>
-                <div class="plan-name">Profissional</div>
-                <div class="plan-price">15.000 <span>Kz/mês</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Acesso a 50+ ações</li>
-                    <li><i class="fas fa-check"></i> Relatórios semanais</li>
-                    <li><i class="fas fa-check"></i> Suporte prioritário</li>
-                    <li><i class="fas fa-check"></i> Análises exclusivas</li>
-                    <li><i class="fas fa-check"></i> Consultoria mensal</li>
-                </ul>
-                <button class="btn-plan">Começar Agora</button>
-            </div>
-
-            <div class="plan-card">
-                <div class="plan-name">Enterprise</div>
-                <div class="plan-price">50.000 <span>Kz/mês</span></div>
-                <ul class="plan-features">
-                    <li><i class="fas fa-check"></i> Acesso a todas ações</li>
-                    <li><i class="fas fa-check"></i> Relatórios diários</li>
-                    <li><i class="fas fa-check"></i> Suporte VIP 24/7</li>
-                    <li><i class="fas fa-check"></i> Análises premium</li>
-                    <li><i class="fas fa-check"></i> Consultoria semanal</li>
-                </ul>
-                <button class="btn-plan">Começar Agora</button>
+            <div class="sobre-image">
+                <img src="https://img.freepik.com/free-photo/modern-office-building_1127-839.jpg" alt="Safira SDVM">
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials-section">
-        <div class="section-header">
-            <h2>O que dizem nossos clientes</h2>
-            <p>Histórias reais de investidores como você</p>
+    <!-- Notícias Section -->
+    <section class="noticias-section" id="noticias">
+        <div class="section-title">
+            <h2>Últimas Notícias</h2>
+            <p>Acompanhe as novidades do mercado financeiro angolano</p>
         </div>
 
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <i class="fas fa-quote-right quote-icon"></i>
-                <p class="testimonial-text">"A Safira revolucionou a forma como invisto. A plataforma é intuitiva e o suporte é excepcional."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">AM</div>
-                    <div class="author-info">
-                        <h4>Ana Martins</h4>
-                        <p>Investidora há 2 anos</p>
-                    </div>
+        <div class="noticias-grid">
+            <div class="noticia-card">
+                <div class="noticia-image" style="background-image: url('https://img.freepik.com/free-photo/business-chart_93675-12857.jpg')">
+                    <div class="noticia-date">15 Jan 2024</div>
+                </div>
+                <div class="noticia-content">
+                    <h3>BAI anuncia dividendos recorde</h3>
+                    <p>O Banco Angolano de Investimentos registrou lucro histórico no último trimestre...</p>
+                    <a href="#" class="read-more">Ler mais <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <div class="testimonial-card">
-                <i class="fas fa-quote-right quote-icon"></i>
-                <p class="testimonial-text">"Finalmente uma plataforma angolana que oferece as melhores ferramentas para investir no mercado local."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">JS</div>
-                    <div class="author-info">
-                        <h4>João Silva</h4>
-                        <p>Investidor profissional</p>
-                    </div>
+            <div class="noticia-card">
+                <div class="noticia-image" style="background-image: url('https://img.freepik.com/free-photo/business-still-life_23-2149489782.jpg')">
+                    <div class="noticia-date">10 Jan 2024</div>
+                </div>
+                <div class="noticia-content">
+                    <h3>BODIVA lança novos produtos</h3>
+                    <p>A Bolsa de Valores de Angola expande seu portfólio com novos instrumentos financeiros...</p>
+                    <a href="#" class="read-more">Ler mais <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <div class="testimonial-card">
-                <i class="fas fa-quote-right quote-icon"></i>
-                <p class="testimonial-text">"Os relatórios e análises são fundamentais para minhas decisões de investimento. Recomendo!"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MF</div>
-                    <div class="author-info">
-                        <h4>Maria Ferreira</h4>
-                        <p>Empresária</p>
-                    </div>
+            <div class="noticia-card">
+                <div class="noticia-image" style="background-image: url('https://img.freepik.com/free-photo/business-people-shaking-hands_53876-14859.jpg')">
+                    <div class="noticia-date">05 Jan 2024</div>
+                </div>
+                <div class="noticia-content">
+                    <h3>Safira expande operações</h3>
+                    <p>Nova sede da Safira SDVM promete revolucionar o atendimento aos investidores...</p>
+                    <a href="#" class="read-more">Ler mais <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Newsletter -->
-    <section class="newsletter-section">
-        <div class="newsletter-container">
-            <h3>Fique por dentro do mercado</h3>
-            <p>Receba análises exclusivas e oportunidades de investimento diretamente no seu email</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Seu melhor email" required>
-                <button type="submit">Inscrever-se</button>
-            </form>
+    <!-- Contacto Section -->
+    <section class="contacto-section" id="contacto">
+        <div class="contacto-container">
+            <div class="contacto-info">
+                <h3>Fale Connosco</h3>
+                <p style="color: #666; margin-bottom: 2rem;">Estamos disponíveis para esclarecer suas dúvidas e auxiliar em seus investimentos.</p>
+                
+                <div class="contacto-detail">
+                    <div class="contacto-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contacto-text">
+                        <h4>Endereço</h4>
+                        <p>Edifício Safira, Rua Amílcar Cabral, 123<br>Luanda, Angola</p>
+                    </div>
+                </div>
+
+                <div class="contacto-detail">
+                    <div class="contacto-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contacto-text">
+                        <h4>Telefone</h4>
+                        <p>+244 222 123 456<br>+244 923 456 789</p>
+                    </div>
+                </div>
+
+                <div class="contacto-detail">
+                    <div class="contacto-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contacto-text">
+                        <h4>Email</h4>
+                        <p>geral@safira-sdvm.ao<br>suporte@safira-sdvm.ao</p>
+                    </div>
+                </div>
+
+                <div class="contacto-detail">
+                    <div class="contacto-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contacto-text">
+                        <h4>Horário</h4>
+                        <p>Segunda a Sexta: 08h00 - 17h00<br>Sábado: 09h00 - 13h00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contacto-form">
+                <h3 style="color: var(--safira-blue); margin-bottom: 1.5rem;">Envie sua Mensagem</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefone">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Sua Mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Enviar Mensagem</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -960,49 +1177,50 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>SAFIRA SDVM</h3>
-                <p>Sua parceira de confiança para investimentos na Bolsa de Valores de Angola. Transparência, segurança e rentabilidade.</p>
+                <h4>Safira SDVM</h4>
+                <p>Sua parceira de confiança no mercado de capitais angolano. Autorizada e regulada pelo Banco Nacional de Angola.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
 
             <div class="footer-section">
-                <h3>Links Rápidos</h3>
+                <h4>Links Rápidos</h4>
                 <ul>
                     <li><a href="#home">Início</a></li>
-                    <li><a href="#market">Mercado</a></li>
-                    <li><a href="#features">Vantagens</a></li>
-                    <li><a href="#plans">Planos</a></li>
-                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#acoes">Ações</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#noticias">Notícias</a></li>
+                    <li><a href="#contacto">Contactos</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h3>Suporte</h3>
+                <h4>Informações Legais</h4>
                 <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Central de Ajuda</a></li>
-                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Termos e Condições</a></li>
                     <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Regulamento</a></li>
+                    <li><a href="#">FAQ</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h3>Contacto</h3>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +244 123 456 789</li>
-                    <li><i class="fas fa-envelope"></i> info@safira-sdvm.ao</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
-                </ul>
+                <h4>Newsletter</h4>
+                <p>Receba as melhores oportunidades de investimento</p>
+                <form style="margin-top: 1rem;">
+                    <input type="email" placeholder="Seu email" style="width: 100%; padding: 0.8rem; border: none; border-radius: 5px; margin-bottom: 0.5rem;">
+                    <button type="submit" style="width: 100%; padding: 0.8rem; background: var(--safira-gold); color: var(--safira-dark); border: none; border-radius: 5px; font-weight: 700; cursor: pointer;">Inscrever</button>
+                </form>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2024 Safira SDVM. Todos os direitos reservados.</p>
+            <p>&copy; 2024 Safira SDVM - Sociedade Distribuidora de Valores Mobiliários. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -1012,10 +1230,10 @@
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
                 navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 51, 102, 0.15)';
             } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = 'none';
+                navbar.style.background = 'white';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 51, 102, 0.1)';
             }
         });
 
@@ -1029,36 +1247,52 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    
+                    // Update active class
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
                 }
             });
         });
 
-        // Simple chart placeholders (can be replaced with actual chart library)
-        const charts = document.querySelectorAll('.chart-container');
-        charts.forEach(chart => {
-            const canvas = document.createElement('canvas');
-            canvas.width = chart.clientWidth;
-            canvas.height = chart.clientHeight;
-            chart.appendChild(canvas);
+        // Active menu on scroll
+        window.addEventListener('scroll', function() {
+            let sections = document.querySelectorAll('section');
+            let scrollPosition = window.scrollY + 100;
             
-            // Draw a simple line
-            const ctx = canvas.getContext('2d');
-            ctx.beginPath();
-            ctx.strokeStyle = '#667eea';
-            ctx.lineWidth = 2;
-            
-            for (let i = 0; i <= 100; i++) {
-                const x = (i / 100) * canvas.width;
-                const y = canvas.height / 2 + Math.sin(i * 0.2) * 20;
-                
-                if (i === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
+            sections.forEach(section => {
+                if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+                    let currentId = section.getAttribute('id');
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentId) {
+                            link.classList.add('active');
+                        }
+                    });
                 }
-            }
-            
-            ctx.stroke();
+            });
+        });
+
+        // Mobile menu toggle (would need additional CSS for mobile menu)
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            // Add mobile menu functionality here
+            alert('Versão mobile em desenvolvimento');
+        });
+
+        // Form submission
+        document.querySelector('.contacto-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+
+        // Newsletter form
+        document.querySelector('.footer-section form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Inscrição realizada com sucesso!');
+            this.reset();
         });
     </script>
 </body>
