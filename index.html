@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safira SDVM - Investimentos em Ações</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-invest {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-invest:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-invest::after {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            width: 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Market Section */
+        .market-section {
+            padding: 6rem 5%;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .market-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .stock-symbol {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .stock-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-change {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stock-change.positive {
+            color: #10b981;
+        }
+
+        .stock-change.negative {
+            color: #ef4444;
+        }
+
+        .chart-container {
+            margin: 1.5rem 0;
+            height: 100px;
+        }
+
+        .btn-card {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-card:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Investment Plans */
+        .plans-section {
+            padding: 6rem 5%;
+            background: white;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .plan-card:hover {
+            transform: scale(105%);
+            border-color: #667eea;
+        }
+
+        .plan-card.popular {
+            border: 2px solid #667eea;
+            transform: scale(105%);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 1.5rem 0;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+
+        .plan-features i {
+            color: #10b981;
+            margin-right: 0.5rem;
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+            color: #667eea;
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 4rem 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-container h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-container p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-card.popular {
+                transform: scale(100%);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">SAFIRA SDVM</div>
+        <div class="nav-links">
+            <a href="#home">Início</a>
+            <a href="#market">Mercado</a>
+            <a href="#features">Vantagens</a>
+            <a href="#plans">Planos</a>
+            <a href="#about">Sobre</a>
+            <a href="#contact">Contacto</a>
+            <a href="#" class="btn-invest">Investir Agora</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="hero-badge">⚡ Mercado em Tempo Real</span>
+            <h1>Invista no Futuro<br>das Ações Angolanas</h1>
+            <p>Plataforma líder em investimentos na Bolsa de Valores de Angola. Acesso direto às melhores oportunidades do mercado.</p>
+            <a href="#" class="btn-invest" style="display: inline-block;">Começar a Investir</a>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Empresas Listadas</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10k+</span>
+                    <span class="stat-label">Investidores</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Suporte</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://img.freepik.com/free-vector/financial-data-concept-illustration_114360-1600.jpg" alt="Trading Illustration">
+        </div>
+    </section>
+
+    <!-- Market Section -->
+    <section class="market-section" id="market">
+        <div class="section-header">
+            <h2>Mercado em Destaque</h2>
+            <p>Acompanhe as principais ações da Bolsa de Valores de Angola em tempo real</p>
+        </div>
+
+        <div class="market-grid">
+            <div class="market-card">
+                <div class="card-header">
+                    <span class="company-name">Banco Angolano</span>
+                    <span class="stock-symbol">B AI</span>
+                </div>
+                <div class="stock-price">1.250,00 Kz</div>
+                <div class="stock-change positive">
+                    <i class="fas fa-arrow-up"></i> +2.5%
+                </div>
+                <div class="chart-container">
+                    <!-- Placeholder for chart -->
+                </div>
+                <button class="btn-card">Ver Detalhes</button>
+            </div>
+
+            <div class="market-card">
+                <div class="card-header">
+                    <span class="company-name">Telecom Angola</span>
+                    <span class="stock-symbol">T A</span>
+                </div>
+                <div class="stock-price">3.450,00 Kz</div>
+                <div class="stock-change positive">
+                    <i class="fas fa-arrow-up"></i> +1.8%
+                </div>
+                <div class="chart-container">
+                    <!-- Placeholder for chart -->
+                </div>
+                <button class="btn-card">Ver Detalhes</button>
+            </div>
+
+            <div class="market-card">
+                <div class="card-header">
+                    <span class="company-name">Energia Angola</span>
+                    <span class="stock-symbol">E A</span>
+                </div>
+                <div class="stock-price">2.890,00 Kz</div>
+                <div class="stock-change negative">
+                    <i class="fas fa-arrow-down"></i> -0.3%
+                </div>
+                <div class="chart-container">
+                    <!-- Placeholder for chart -->
+                </div>
+                <button class="btn-card">Ver Detalhes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header" style="color: white;">
+            <h2 style="color: white;">Por que escolher a Safira?</h2>
+            <p style="color: rgba(255, 255, 255, 0.9);">Uma plataforma completa para seus investimentos</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Segurança Garantida</h3>
+                <p>Proteção de dados e transações com criptografia de ponta a ponta</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Análise em Tempo Real</h3>
+                <p>Gráficos e indicadores atualizados instantaneamente</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>App Mobile</h3>
+                <p>Invista de qualquer lugar, a qualquer momento</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Suporte Especializado</h3>
+                <p>Equipe de especialistas disponível 24/7</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Plans -->
+    <section class="plans-section" id="plans">
+        <div class="section-header">
+            <h2>Planos de Investimento</h2>
+            <p>Escolha o plano que melhor se adequa aos seus objetivos</p>
+        </div>
+
+        <div class="plans-grid">
+            <div class="plan-card">
+                <div class="plan-name">Básico</div>
+                <div class="plan-price">5.000 <span>Kz/mês</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Acesso a 10 ações</li>
+                    <li><i class="fas fa-check"></i> Relatórios mensais</li>
+                    <li><i class="fas fa-check"></i> Suporte por email</li>
+                    <li><i class="fas fa-times"></i> Análises exclusivas</li>
+                    <li><i class="fas fa-times"></i> Consultoria pessoal</li>
+                </ul>
+                <button class="btn-plan">Começar Agora</button>
+            </div>
+
+            <div class="plan-card popular">
+                <div class="popular-badge">Mais Popular</div>
+                <div class="plan-name">Profissional</div>
+                <div class="plan-price">15.000 <span>Kz/mês</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Acesso a 50+ ações</li>
+                    <li><i class="fas fa-check"></i> Relatórios semanais</li>
+                    <li><i class="fas fa-check"></i> Suporte prioritário</li>
+                    <li><i class="fas fa-check"></i> Análises exclusivas</li>
+                    <li><i class="fas fa-check"></i> Consultoria mensal</li>
+                </ul>
+                <button class="btn-plan">Começar Agora</button>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-name">Enterprise</div>
+                <div class="plan-price">50.000 <span>Kz/mês</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Acesso a todas ações</li>
+                    <li><i class="fas fa-check"></i> Relatórios diários</li>
+                    <li><i class="fas fa-check"></i> Suporte VIP 24/7</li>
+                    <li><i class="fas fa-check"></i> Análises premium</li>
+                    <li><i class="fas fa-check"></i> Consultoria semanal</li>
+                </ul>
+                <button class="btn-plan">Começar Agora</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2>O que dizem nossos clientes</h2>
+            <p>Histórias reais de investidores como você</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"A Safira revolucionou a forma como invisto. A plataforma é intuitiva e o suporte é excepcional."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AM</div>
+                    <div class="author-info">
+                        <h4>Ana Martins</h4>
+                        <p>Investidora há 2 anos</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"Finalmente uma plataforma angolana que oferece as melhores ferramentas para investir no mercado local."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JS</div>
+                    <div class="author-info">
+                        <h4>João Silva</h4>
+                        <p>Investidor profissional</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"Os relatórios e análises são fundamentais para minhas decisões de investimento. Recomendo!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MF</div>
+                    <div class="author-info">
+                        <h4>Maria Ferreira</h4>
+                        <p>Empresária</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h3>Fique por dentro do mercado</h3>
+            <p>Receba análises exclusivas e oportunidades de investimento diretamente no seu email</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Seu melhor email" required>
+                <button type="submit">Inscrever-se</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SAFIRA SDVM</h3>
+                <p>Sua parceira de confiança para investimentos na Bolsa de Valores de Angola. Transparência, segurança e rentabilidade.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#market">Mercado</a></li>
+                    <li><a href="#features">Vantagens</a></li>
+                    <li><a href="#plans">Planos</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +244 123 456 789</li>
+                    <li><i class="fas fa-envelope"></i> info@safira-sdvm.ao</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Safira SDVM. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Simple chart placeholders (can be replaced with actual chart library)
+        const charts = document.querySelectorAll('.chart-container');
+        charts.forEach(chart => {
+            const canvas = document.createElement('canvas');
+            canvas.width = chart.clientWidth;
+            canvas.height = chart.clientHeight;
+            chart.appendChild(canvas);
+            
+            // Draw a simple line
+            const ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2;
+            
+            for (let i = 0; i <= 100; i++) {
+                const x = (i / 100) * canvas.width;
+                const y = canvas.height / 2 + Math.sin(i * 0.2) * 20;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            
+            ctx.stroke();
+        });
+    </script>
+</body>
+</html>
